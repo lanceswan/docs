@@ -66,9 +66,9 @@
 
 <p>For simplicity our address element will have three text fields: Street, ZIP code and Country.</p>
 
-<p>Let's give the user the possibility to input those values, by altering the <em>edit</em> function.</p>
+<p>Let's give the user the possibility to input those values, by altering the <em>_edit</em> function.</p>
 
-<pre><code>public function edit() {
+<pre><code>public function _edit() {
 	$html = array();
 	$html[] = $this->app->html->_('control.editrow', JText::_('Street'), 	$this->app->html->_('control.text', $this->getControlName('street'), $this-&gt;get('street'), 'size=&quot;60&quot; maxlength=&quot;255&quot;'));
 	$html[] = $this->app->html->_('control.editrow', JText::_('ZIP'), $this->app->html->_('control.text', $this->getControlName('zip'), $this-&gt;get('zip'), 'size=&quot;60&quot; maxlength=&quot;255&quot;'));
@@ -78,24 +78,24 @@
 }
 </code></pre>
 
-<p>The <em>edit</em> function will output the three text fields in the item edit. It uses the <code>element.editrow</code> function to generate an edit row, with a label and a textfield. And it uses the <code>control.text</code> function to output this textfield.</p>
+<p>The <em>_edit</em> function will output the three text fields in the item edit. It uses the <code>element.editrow</code> function to generate an edit row, with a label and a textfield. And it uses the <code>control.text</code> function to output this textfield.</p>
 
 <p>To get the current data value, we use the elements <em>get</em> method: <code>$this-&gt;get(DATA_KEY);</code>.</p>
 
-<p>For an item to be actually rendered, we will have to overwrite the base classes <code>render</code> function.</p>
+<p>For an item to be actually rendered, we will have to overwrite the base classes <code>_render</code> function.</p>
 
-<pre><code>public function render($params = array()) {
+<pre><code>public function _render($params = array()) {
 	return $this-&gt;get('street') . ', ' . $this-&gt;get('zip') . ', ' .$this-&gt;get('country');
 }
 </code></pre>
 
 <p>The <em>$params</em> parameter contains an array with the display options, we specified in the elements xml file.</p>
 
-<p>This will output the three elements values separated by commas. Notice we use the same method of retrieving the elements data, as in the above <em>edit</em> function.</p>
+<p>This will output the three elements values separated by commas. Notice we use the same method of retrieving the elements data, as in the above <em>_edit</em> function.</p>
 
-<p>Leaving the function as it is wouldn't output any data in the frontend though. We need to overwrite the <em>hasValue</em> function, to tell the renderer, if the element has a value or not.</p>
+<p>Leaving the function as it is wouldn't output any data in the frontend though. We need to overwrite the <em>_hasValue</em> function, to tell the renderer, if the element has a value or not.</p>
 
-<pre><code>public function hasValue($params = array()) {
+<pre><code>public function _hasValue($params = array()) {
 	$street = $this-&gt;get('street');
 	$zip = $this-&gt;get('zip');
 	$country = $this-&gt;get('country');
